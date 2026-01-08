@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Team Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚽ Soccer Team Generator</h1>
+            <p>Generate balanced soccer teams from your player list</p>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="add-players">
+                    <span class="tab-icon">➕</span>
+                    Add Players
+                </button>
+                <button class="tab-btn" data-tab="player-gallery">
+                    <span class="tab-icon">👥</span>
+                    Player Gallery
+                </button>
+                <button class="tab-btn" data-tab="generate-teams">
+                    <span class="tab-icon">⚽</span>
+                    Generate Teams
+                </button>
+            </nav>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Add Players Tab -->
+                <section id="add-players" class="tab-pane active">
+                    <div class="player-input">
+                        <h2 id="player-form-title">Add New Player</h2>
+                        <div class="player-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="playerName">Player Name</label>
+                                    <input type="text" id="playerName" placeholder="Enter player name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group positions-group">
+                                    <label>Positions (Select all that apply)</label>
+                                    <div class="position-checkboxes">
+                                        <!-- Goalkeeper -->
+                                        <div class="position-category">
+                                            <h4>Goalkeeper</h4>
+                                            <label class="checkbox-label gk">
+                                                <input type="checkbox" name="position" value="GK">
+                                                <span class="checkmark"></span>
+                                                Goalkeeper (GK)
+                                            </label>
+                                        </div>
+
+                                        <!-- Defenders -->
+                                        <div class="position-category">
+                                            <h4>Defenders</h4>
+                                            <label class="checkbox-label def">
+                                                <input type="checkbox" name="position" value="CB">
+                                                <span class="checkmark"></span>
+                                                Centre Back (CB)
+                                            </label>
+                                            <label class="checkbox-label def">
+                                                <input type="checkbox" name="position" value="LB">
+                                                <span class="checkmark"></span>
+                                                Left Back (LB)
+                                            </label>
+                                            <label class="checkbox-label def">
+                                                <input type="checkbox" name="position" value="RB">
+                                                <span class="checkmark"></span>
+                                                Right Back (RB)
+                                            </label>
+                                        </div>
+
+                                        <!-- Midfielders -->
+                                        <div class="position-category">
+                                            <h4>Midfielders</h4>
+                                            <label class="checkbox-label mid">
+                                                <input type="checkbox" name="position" value="CDM">
+                                                <span class="checkmark"></span>
+                                                Defensive Mid (CDM)
+                                            </label>
+                                            <label class="checkbox-label mid">
+                                                <input type="checkbox" name="position" value="CM">
+                                                <span class="checkmark"></span>
+                                                Centre Mid (CM)
+                                            </label>
+                                            <label class="checkbox-label mid">
+                                                <input type="checkbox" name="position" value="CAM">
+                                                <span class="checkmark"></span>
+                                                Attacking Mid (CAM)
+                                            </label>
+                                            <label class="checkbox-label mid">
+                                                <input type="checkbox" name="position" value="LM">
+                                                <span class="checkmark"></span>
+                                                Left Mid (LM)
+                                            </label>
+                                            <label class="checkbox-label mid">
+                                                <input type="checkbox" name="position" value="RM">
+                                                <span class="checkmark"></span>
+                                                Right Mid (RM)
+                                            </label>
+                                        </div>
+
+                                        <!-- Forwards -->
+                                        <div class="position-category">
+                                            <h4>Forwards</h4>
+                                            <label class="checkbox-label fwd">
+                                                <input type="checkbox" name="position" value="LW">
+                                                <span class="checkmark"></span>
+                                                Left Wing (LW)
+                                            </label>
+                                            <label class="checkbox-label fwd">
+                                                <input type="checkbox" name="position" value="RW">
+                                                <span class="checkmark"></span>
+                                                Right Wing (RW)
+                                            </label>
+                                            <label class="checkbox-label fwd">
+                                                <input type="checkbox" name="position" value="ST">
+                                                <span class="checkmark"></span>
+                                                Striker (ST)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group preferred-position-group">
+                                    <label for="preferredPosition">Preferred Position (Primary)</label>
+                                    <select id="preferredPosition" disabled>
+                                        <option value="">Select positions first</option>
+                                    </select>
+                                    <small class="help-text">Choose the player's most preferred position for team formation</small>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <!-- Outfield Stats -->
+                                <div class="fifa-stats" id="outfield-stats">
+                                    <h3>FIFA Outfield Stats (1-99)</h3>
+                                    <div class="stats-grid">
+                                        <div class="stat-group">
+                                            <label for="pace">Pace (PAC)</label>
+                                            <input type="number" id="pace" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="shooting">Shooting (SHO)</label>
+                                            <input type="number" id="shooting" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="passing">Passing (PAS)</label>
+                                            <input type="number" id="passing" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="dribbling">Dribbling (DRI)</label>
+                                            <input type="number" id="dribbling" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="defending">Defending (DEF)</label>
+                                            <input type="number" id="defending" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="physical">Physical (PHY)</label>
+                                            <input type="number" id="physical" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group overall-stat">
+                                            <label for="overall">Overall (OVR)</label>
+                                            <input type="number" id="overall" min="1" max="99" value="75">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Goalkeeper Stats -->
+                                <div class="fifa-stats" id="goalkeeper-stats" style="display: none;">
+                                    <h3>FIFA Goalkeeper Stats (1-99)</h3>
+                                    <div class="stats-grid">
+                                        <div class="stat-group">
+                                            <label for="gk_diving">Diving (DIV)</label>
+                                            <input type="number" id="gk_diving" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="gk_handling">Handling (HAN)</label>
+                                            <input type="number" id="gk_handling" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="gk_kicking">Kicking (KIC)</label>
+                                            <input type="number" id="gk_kicking" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="gk_reflexes">Reflexes (REF)</label>
+                                            <input type="number" id="gk_reflexes" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="gk_speed">Speed (SPD)</label>
+                                            <input type="number" id="gk_speed" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group">
+                                            <label for="gk_positioning">Positioning (POS)</label>
+                                            <input type="number" id="gk_positioning" min="1" max="99" value="75">
+                                        </div>
+                                        <div class="stat-group overall-stat">
+                                            <label for="gk_overall">Overall (OVR)</label>
+                                            <input type="number" id="gk_overall" min="1" max="99" value="75">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button onclick="addPlayer()">Add Player</button>
+                                <button onclick="resetForm()">Reset Form</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <button onclick="loadSamplePlayers()" class="sample-btn">Load 22 Sample Players (4-3-3 Formation)</button>
+                    </div>
+                </section>
+
+                <!-- Player Gallery Tab -->
+                <section id="player-gallery" class="tab-pane">
+                    <div class="gallery-header">
+                        <h2>Player Gallery</h2>
+                        <div class="gallery-info">
+                            <span class="player-count">Players: <span id="playerCount">0</span></span>
+                            <span class="selected-count">Selected: <span id="selectedCount">0</span></span>
+                        </div>
+                        <div class="gallery-controls">
+                            <div class="selection-controls">
+                                <button onclick="selectAllPlayers()" class="select-btn">Select All</button>
+                                <button onclick="deselectAllPlayers()" class="deselect-btn">Deselect All</button>
+                            </div>
+                            <div class="player-controls">
+                                <button onclick="exportPlayersToJSON()" class="export-btn">💾 Export to JSON</button>
+                                <button onclick="importPlayersFromJSON()" class="import-btn">📁 Import from JSON</button>
+                                <button onclick="clearAllPlayers()" class="clear-btn">Clear All Players</button>
+                                <button onclick="shufflePlayers()" class="shuffle-btn">Shuffle Players</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="player-list" class="player-grid"></div>
+                </section>
+
+                <!-- Generate Teams Tab -->
+                <section id="generate-teams" class="tab-pane">
+                    <div class="team-generation">
+                        <h2>Generate Teams</h2>
+                        <div class="generation-info">
+                            <p><strong>Advanced Position-Based Team Generation:</strong> Creates balanced teams by first ensuring proper formation coverage (4-3-3), then balancing by player ratings using snake draft algorithm. Teams are displayed in pitch formation view.</p>
+                        </div>
+                        <div class="generation-controls">
+                            <div class="control-group">
+                                <label for="playerSelection">Player Selection:</label>
+                                <select id="playerSelection">
+                                    <option value="all">Use All Players</option>
+                                    <option value="selected">Use Selected Players Only</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="teamCount">Number of teams:</label>
+                                <select id="teamCount">
+                                    <option value="2">2 Teams</option>
+                                    <option value="3">3 Teams</option>
+                                    <option value="4">4 Teams</option>
+                                </select>
+                            </div>
+                            <div class="button-group">
+                                <button onclick="if(!this.disabled) generateTeams()" class="generate-btn">Generate Teams</button>
+                                <button onclick="regenerateTeams()" class="regenerate-btn" id="regenerateBtn" style="display: none;">Regenerate Teams</button>
+                            </div>
+                        </div>
+                        <div id="teams-display" class="teams-container"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Load JavaScript modules in correct order -->
+    <script src="js/PlayerManager.js"></script>
+    <script src="js/TeamGenerator.js"></script>
+    <script src="js/UIManager.js"></script>
+    <script src="js/DataManager.js"></script>
+    <script src="js/SoccerTeamGenerator.js"></script>
+</body>
+</html>
